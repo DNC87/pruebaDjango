@@ -1,22 +1,15 @@
-<html>
-	<head>
-		<title>Blog de prueba con Django</title>
-	</head>
-
-	<body>
-		<div>
-			<h1><a href="">Mi blog de prueba con Django</a></h1>
-		</div>
-		{% for post in posts %} 
-		<div>
-			<p>
-				published: {{post.published_date}}
-			</p>
-			<h2>
-				Título: {{post.title}}
-			</h2>
-			<p>{{post.text|linebreaks}}</p>
-		</div>
-		{% endfor %}
-	</body>
-</html>
+{% extends 'blog/base.html' %}
+{% block content %}
+	{% for post in posts %} 
+	<div class="post well">
+		<p>
+			published: {{post.published_date}}
+		</p>
+		<h2>
+			<a href="{% url 'blog.views.post_detail' post_id=post.pk %}">{{post.title}}</a>
+		</h2>
+		<p>{{post.text|linebreaks}}</p>
+		<hr>
+	</div>
+	{% endfor %}
+{% endblock content %}
